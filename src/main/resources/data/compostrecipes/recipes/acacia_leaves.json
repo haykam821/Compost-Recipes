@@ -1,7 +1,0 @@
-{
-	"type": "compostrecipes:composting",
-	"ingredient": {
-		"item": "minecraft:acacia_leaves"
-	},
-	"chance": 0.3
-}

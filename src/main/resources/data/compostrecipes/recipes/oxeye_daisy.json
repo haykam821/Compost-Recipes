@@ -1,7 +1,0 @@
-{
-	"type": "compostrecipes:composting",
-	"ingredient": {
-		"item": "minecraft:oxeye_daisy"
-	},
-	"chance": 0.65
-}

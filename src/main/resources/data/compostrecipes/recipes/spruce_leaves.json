@@ -1,7 +1,0 @@
-{
-	"type": "compostrecipes:composting",
-	"ingredient": {
-		"item": "minecraft:spruce_leaves"
-	},
-	"chance": 0.3
-}

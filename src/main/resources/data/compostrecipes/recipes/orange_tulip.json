@@ -1,7 +1,0 @@
-{
-	"type": "compostrecipes:composting",
-	"ingredient": {
-		"item": "minecraft:orange_tulip"
-	},
-	"chance": 0.65
-}

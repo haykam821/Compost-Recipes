@@ -1,7 +1,0 @@
-{
-	"type": "compostrecipes:composting",
-	"ingredient": {
-		"item": "minecraft:rose_bush"
-	},
-	"chance": 0.65
-}

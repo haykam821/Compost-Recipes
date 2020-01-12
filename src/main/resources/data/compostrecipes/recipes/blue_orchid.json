@@ -1,7 +1,0 @@
-{
-	"type": "compostrecipes:composting",
-	"ingredient": {
-		"item": "minecraft:blue_orchid"
-	},
-	"chance": 0.65
-}

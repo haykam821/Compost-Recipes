@@ -1,7 +1,7 @@
 {
 	"type": "compostrecipes:composting",
 	"ingredient": {
-		"item": "minecraft:acacia_sapling"
+		"tag": "minecraft:leaves"
 	},
 	"chance": 0.3
 }
