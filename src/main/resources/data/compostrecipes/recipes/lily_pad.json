@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:lily_pad"
+	},
+	"chance": 0.65
+}

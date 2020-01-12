@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:wheat"
+	},
+	"chance": 0.65
+}

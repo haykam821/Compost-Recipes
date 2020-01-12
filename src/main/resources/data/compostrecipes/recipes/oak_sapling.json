@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:oak_sapling"
+	},
+	"chance": 0.3
+}

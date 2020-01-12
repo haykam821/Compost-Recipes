@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:bread"
+	},
+	"chance": 0.85
+}

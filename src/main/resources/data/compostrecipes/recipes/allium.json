@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:allium"
+	},
+	"chance": 0.65
+}

@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:tall_grass"
+	},
+	"chance": 0.5
+}

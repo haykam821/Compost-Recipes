@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:white_tulip"
+	},
+	"chance": 0.65
+}

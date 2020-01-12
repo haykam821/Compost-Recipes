@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:melon_slice"
+	},
+	"chance": 0.5
+}

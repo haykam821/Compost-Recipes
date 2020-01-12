@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:melon_seeds"
+	},
+	"chance": 0.3
+}

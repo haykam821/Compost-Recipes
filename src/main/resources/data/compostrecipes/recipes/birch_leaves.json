@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:birch_leaves"
+	},
+	"chance": 0.3
+}

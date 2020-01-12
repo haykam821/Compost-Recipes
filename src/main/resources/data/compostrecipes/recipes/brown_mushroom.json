@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:brown_mushroom"
+	},
+	"chance": 0.65
+}

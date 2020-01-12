@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:mushroom_stem"
+	},
+	"chance": 0.65
+}

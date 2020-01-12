@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:dried_kelp_block"
+	},
+	"chance": 0.5
+}

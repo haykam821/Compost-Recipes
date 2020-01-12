@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:wither_rose"
+	},
+	"chance": 0.65
+}

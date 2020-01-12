@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:cocoa_beans"
+	},
+	"chance": 0.65
+}

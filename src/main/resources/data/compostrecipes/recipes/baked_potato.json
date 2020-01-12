@@ -1,0 +1,7 @@
+{
+	"type": "compostrecipes:composting",
+	"ingredient": {
+		"item": "minecraft:baked_potato"
+	},
+	"chance": 0.85
+}

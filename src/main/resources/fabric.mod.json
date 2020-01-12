@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"id": "compostrecipes",
+	"version": "${version}",
+
+	"name": "Compost Recipes",
+	"description": "Adds recipe support for the composter.",
+	"authors": [
+		"haykam821"
+	],
+	"contact": {
+		"homepage": "https://github.com/haykam821/Compost-Recipes#readme",
+		"issues": "https://github.com/haykam821/Compost-Recipes/issues"
+	},
+
+	"license": "MIT",
+	"icon": "assets/compostrecipes/icon.png",
+
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"io.github.haykam821.compostrecipes.Main"
+		]
+	},
+	"mixins": [
+		"compostrecipes.mixins.json"
+	],
+
+	"depends": {
+		"fabricloader": ">=0.4.0"
+	}
+}
