@@ -27,7 +27,7 @@ public class ComposterBlockMixin {
 	@Shadow
 	private static IntProperty LEVEL;
 
-	@Redirect(method = "onUse", at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/objects/Object2FloatMap;containsKey(Ljava/lang/Object;)Z"), remap = false)
+	@Redirect(method = "onUse", at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/objects/Object2FloatMap;containsKey(Ljava/lang/Object;)Z"))
 	private boolean containsKey(Object2FloatMap<ItemConvertible> map, Object key) {
 		ClientWorld world = MinecraftClient.getInstance().world;
 		Inventory fakeInv = new BasicInventory(new ItemStack((Item) key));
