@@ -10,14 +10,15 @@ import io.github.haykam821.compostrecipes.Main;
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ComposterBlock;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.BasicInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -27,11 +28,10 @@ public class ComposterBlockMixin {
 	@Shadow
 	private static IntProperty LEVEL;
 
-	@Redirect(method = "onUse", at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/objects/Object2FloatMap;containsKey(Ljava/lang/Object;)Z"))
-	private boolean containsKey(Object2FloatMap<ItemConvertible> map, Object key) {
-		ClientWorld world = MinecraftClient.getInstance().world;
-		Inventory fakeInv = new BasicInventory(new ItemStack((Item) key));
-		return world.getRecipeManager().getFirstMatch(Main.COMPOSTING_RECIPE_TYPE, fakeInv, world).orElse(null) != null;
+	@Redirect(method = "onUse", at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/objects/Object2FloatMap;containsKey(Ljava/lang/Object;)Z", remap = false))
+	private boolean containsKey(Object2FloatMap<ItemConvertible> map, Object key, BlockState blockState, World world,
+			BlockPos blockPos, PlayerEntity playerEntity, Hand hand, BlockHitResult blockHitResult) {
+		return Main.canCompost(new ItemStack((Item) key), world);
 	}
 
 	private static boolean addToComposter(BlockState blockState, IWorld iWorld, BlockPos blockPos, ItemStack itemStack) {
