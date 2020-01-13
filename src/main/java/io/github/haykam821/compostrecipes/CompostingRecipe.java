@@ -19,14 +19,16 @@ public class CompostingRecipe implements Recipe<Inventory> {
 	protected final Ingredient input;
 	protected final ItemStack output;
 	protected final float chance;
+	protected final int layers;
 
-	public CompostingRecipe(Identifier identifier, String string, Ingredient ingredient, ItemStack output, float chance) {
+	public CompostingRecipe(Identifier identifier, String string, Ingredient ingredient, ItemStack output, float chance, int layers) {
 		this.type = Main.COMPOSTING_RECIPE_TYPE;
 		this.id = identifier;
 		this.group = string;
 		this.input = ingredient;
 		this.output = output;
 		this.chance = chance;
+		this.layers = layers;
    }
 
 	public boolean matches(Inventory inventory, World world) {
@@ -50,6 +52,10 @@ public class CompostingRecipe implements Recipe<Inventory> {
 
 	public float getChance() {
 		return this.chance;
+	}
+
+	public int getLayers() {
+		return this.layers;
 	}
 
 	@Environment(EnvType.CLIENT)

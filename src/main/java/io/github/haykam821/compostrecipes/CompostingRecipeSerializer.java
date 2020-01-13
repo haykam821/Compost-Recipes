@@ -27,10 +27,11 @@ public class CompostingRecipeSerializer implements RecipeSerializer<CompostingRe
 				: JsonHelper.getObject(jsonObject, "ingredient");
 		Ingredient ingredient = Ingredient.fromJson((JsonElement) jsonElement);
 
-		// Chance
+		// Chance and layers
 		float chance = JsonHelper.getFloat(jsonObject, "chance", 1.0F);
+		int layers = JsonHelper.getInt(jsonObject, "layers", 1);
 
-		return this.recipeFactory.create(identifier, string, ingredient, ItemStack.EMPTY, chance);
+		return this.recipeFactory.create(identifier, string, ingredient, ItemStack.EMPTY, chance, layers);
 	}
 
 	@Override
@@ -38,8 +39,9 @@ public class CompostingRecipeSerializer implements RecipeSerializer<CompostingRe
  		String string = packetByteBuf.readString(32767);
 		Ingredient ingredient = Ingredient.fromPacket(packetByteBuf);
 		float chance = packetByteBuf.readFloat();
+		int layers = packetByteBuf.readInt();
 
-		return this.recipeFactory.create(identifier, string, ingredient, ItemStack.EMPTY, chance);
+		return this.recipeFactory.create(identifier, string, ingredient, ItemStack.EMPTY, chance, layers);
 	}
 
 	@Override
@@ -47,9 +49,10 @@ public class CompostingRecipeSerializer implements RecipeSerializer<CompostingRe
 		packetByteBuf.writeString(compostingRecipe.group);
 		compostingRecipe.input.write(packetByteBuf);
 		packetByteBuf.writeFloat(compostingRecipe.chance);
+		packetByteBuf.writeInt(compostingRecipe.layers);
 	}
 
 	interface RecipeFactory {
-		CompostingRecipe create(Identifier identifier, String string, Ingredient ingredient, ItemStack itemStack, float chance);
+		CompostingRecipe create(Identifier identifier, String string, Ingredient ingredient, ItemStack itemStack, float chance, int layers);
 	}
 }
