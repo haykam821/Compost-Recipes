@@ -10,6 +10,7 @@ import io.github.haykam821.compostrecipes.Main;
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ComposterBlock;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.BasicInventory;
 import net.minecraft.inventory.Inventory;
@@ -43,6 +44,7 @@ public class ComposterBlockMixin {
 		CompostingRecipe recipe = world.getRecipeManager().getFirstMatch(Main.COMPOSTING_RECIPE_TYPE, fakeInv, world).get();
 		float chance = recipe.getChance();
 		int layers = recipe.getLayers();
+		float experience = recipe.getExperience();
 
 		if ((currentLevel != 0 || chance <= 0.0F) && iWorld.getRandom().nextDouble() >= (double) chance) {
 			return false;
@@ -51,6 +53,19 @@ public class ComposterBlockMixin {
 			iWorld.setBlockState(blockPos, (BlockState) blockState.with(LEVEL, newLevel), 3);
 			if (newLevel == 7) {
 				iWorld.getBlockTickScheduler().schedule(blockPos, blockState.getBlock(), 20);
+			}
+
+			if (experience >= 0.0f) {
+				while (experience > 0) {
+					int orb = ExperienceOrbEntity.roundToOrbSize((int) experience);
+					experience -= orb;
+
+					BlockPos orbSpawnPos = blockPos.add(0.5d, 0.5d, 0.5d);
+					ExperienceOrbEntity orbEntity = new ExperienceOrbEntity(iWorld.getWorld(), orbSpawnPos.getX(), orbSpawnPos.getY(), orbSpawnPos.getZ(), orb);
+					orbEntity.addVelocity(0, 0.05D, 0);
+					
+					iWorld.spawnEntity(orbEntity);
+				}
 			}
 
 			return true;
