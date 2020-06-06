@@ -1,7 +1,0 @@
-{
-	"type": "compostrecipes:composting",
-	"ingredient": {
-		"tag": "minecraft:leaves"
-	},
-	"chance": 0.3
-}

@@ -1,7 +1,0 @@
-{
-	"type": "compostrecipes:composting",
-	"ingredient": {
-		"item": "minecraft:sugar_cane"
-	},
-	"chance": 0.5
-}

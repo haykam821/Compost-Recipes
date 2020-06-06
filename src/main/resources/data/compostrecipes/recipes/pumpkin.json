@@ -1,7 +1,0 @@
-{
-	"type": "compostrecipes:composting",
-	"ingredient": {
-		"item": "minecraft:pumpkin"
-	},
-	"chance": 0.65
-}

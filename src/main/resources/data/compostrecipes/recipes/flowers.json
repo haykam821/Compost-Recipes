@@ -1,7 +1,0 @@
-{
-	"type": "compostrecipes:composting",
-	"ingredient": {
-		"tag": "minecraft:flowers"
-	},
-	"chance": 0.65
-}

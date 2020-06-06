@@ -1,7 +1,0 @@
-{
-	"type": "compostrecipes:composting",
-	"ingredient": {
-		"tag": "minecraft:saplings"
-	},
-	"chance": 0.3
-}

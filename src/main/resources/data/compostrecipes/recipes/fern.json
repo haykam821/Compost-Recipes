@@ -1,7 +1,0 @@
-{
-	"type": "compostrecipes:composting",
-	"ingredient": {
-		"item": "minecraft:fern"
-	},
-	"chance": 0.65
-}

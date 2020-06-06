@@ -1,7 +1,0 @@
-{
-	"type": "compostrecipes:composting",
-	"ingredient": {
-		"item": "minecraft:hay_block"
-	},
-	"chance": 0.85
-}

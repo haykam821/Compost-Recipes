@@ -1,7 +1,0 @@
-{
-	"type": "compostrecipes:composting",
-	"ingredient": {
-		"item": "minecraft:apple"
-	},
-	"chance": 0.65
-}

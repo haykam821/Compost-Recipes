@@ -1,9 +1,14 @@
 package io.github.haykam821.compostrecipes.mixin;
 
+import java.util.Optional;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import io.github.haykam821.compostrecipes.CompostingRecipe;
 import io.github.haykam821.compostrecipes.Main;
@@ -30,45 +35,52 @@ public class ComposterBlockMixin {
 	private static IntProperty LEVEL;
 
 	@Redirect(method = "onUse", at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/objects/Object2FloatMap;containsKey(Ljava/lang/Object;)Z", remap = false))
-	private boolean containsKey(Object2FloatMap<ItemConvertible> map, Object key, BlockState blockState, World world,
-			BlockPos blockPos, PlayerEntity playerEntity, Hand hand, BlockHitResult blockHitResult) {
-		return Main.canCompost(new ItemStack((Item) key), world);
+	private boolean containsKey(Object2FloatMap<ItemConvertible> map, Object key, BlockState blockState, World world, BlockPos blockPos, PlayerEntity playerEntity, Hand hand, BlockHitResult blockHitResult) {
+		return map.containsKey(key) || Main.canCompost(new ItemStack((Item) key), world);
 	}
 
-	private static boolean addToComposter(BlockState blockState, IWorld iWorld, BlockPos blockPos, ItemStack itemStack) {
-		int currentLevel = (Integer) blockState.get(LEVEL);
+	@Unique
+	private static boolean handleCompostingRecipe(BlockState state, BlockPos pos, World world, CompostingRecipe recipe) {
+		int currentLevel = state.get(LEVEL);
 
-		World world = iWorld.getWorld();
-		Inventory fakeInv = new BasicInventory(itemStack);
-
-		CompostingRecipe recipe = world.getRecipeManager().getFirstMatch(Main.COMPOSTING_RECIPE_TYPE, fakeInv, world).get();
 		float chance = recipe.getChance();
 		int layers = recipe.getLayers();
 		float experience = recipe.getExperience();
 
-		if ((currentLevel != 0 || chance <= 0.0F) && iWorld.getRandom().nextDouble() >= (double) chance) {
+		if ((currentLevel != 0 || chance <= 0.0f) && world.getRandom().nextDouble() >= chance) {
 			return false;
-		} else {
-			int newLevel = Math.min(currentLevel + layers, 7);
-			iWorld.setBlockState(blockPos, (BlockState) blockState.with(LEVEL, newLevel), 3);
-			if (newLevel == 7) {
-				iWorld.getBlockTickScheduler().schedule(blockPos, blockState.getBlock(), 20);
+		}
+		
+		int newLevel = Math.min(currentLevel + layers, 7);
+		world.setBlockState(pos, state.with(LEVEL, newLevel), 3);
+		if (newLevel == 7) {
+			world.getBlockTickScheduler().schedule(pos, state.getBlock(), 20);
+		}
+
+		if (experience >= 0.0f) {
+			while (experience > 0) {
+				int orb = ExperienceOrbEntity.roundToOrbSize((int) experience);
+				experience -= orb;
+
+				BlockPos orbSpawnPos = pos.add(0.5d, 0.5d, 0.5d);
+				ExperienceOrbEntity orbEntity = new ExperienceOrbEntity(world.getWorld(), orbSpawnPos.getX(), orbSpawnPos.getY(), orbSpawnPos.getZ(), orb);
+				orbEntity.addVelocity(0, 0.05D, 0);
+
+				world.spawnEntity(orbEntity);
 			}
+		}
+		return true;
+	}
 
-			if (experience >= 0.0f) {
-				while (experience > 0) {
-					int orb = ExperienceOrbEntity.roundToOrbSize((int) experience);
-					experience -= orb;
+	@Inject(method = "addToComposter", at = @At("HEAD"), cancellable = true)
+	private static void addIngredientToComposter(BlockState state, IWorld iWorld, BlockPos pos, ItemStack input, CallbackInfoReturnable<Boolean> ci) {
+		World world = iWorld.getWorld();
+		Inventory inputInventory = new BasicInventory(input);
 
-					BlockPos orbSpawnPos = blockPos.add(0.5d, 0.5d, 0.5d);
-					ExperienceOrbEntity orbEntity = new ExperienceOrbEntity(iWorld.getWorld(), orbSpawnPos.getX(), orbSpawnPos.getY(), orbSpawnPos.getZ(), orb);
-					orbEntity.addVelocity(0, 0.05D, 0);
-					
-					iWorld.spawnEntity(orbEntity);
-				}
-			}
-
-			return true;
+		Optional<CompostingRecipe> recipeOptional = world.getRecipeManager().getFirstMatch(Main.COMPOSTING_RECIPE_TYPE, inputInventory, world);
+		if (recipeOptional.isPresent()) {
+			CompostingRecipe recipe = recipeOptional.get();
+			ci.setReturnValue(ComposterBlockMixin.handleCompostingRecipe(state, pos, world, recipe));
 		}
 	}
 }
