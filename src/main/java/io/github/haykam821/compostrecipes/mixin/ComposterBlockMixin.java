@@ -17,8 +17,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.BasicInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
@@ -26,8 +26,8 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 
 @Mixin(ComposterBlock.class)
 public class ComposterBlockMixin {
@@ -73,9 +73,9 @@ public class ComposterBlockMixin {
 	}
 
 	@Inject(method = "addToComposter", at = @At("HEAD"), cancellable = true)
-	private static void addIngredientToComposter(BlockState state, IWorld iWorld, BlockPos pos, ItemStack input, CallbackInfoReturnable<Boolean> ci) {
-		World world = iWorld.getWorld();
-		Inventory inputInventory = new BasicInventory(input);
+	private static void addIngredientToComposter(BlockState state, WorldAccess worldAccess, BlockPos pos, ItemStack input, CallbackInfoReturnable<Boolean> ci) {
+		World world = worldAccess.getWorld();
+		Inventory inputInventory = new SimpleInventory(input);
 
 		Optional<CompostingRecipe> recipeOptional = world.getRecipeManager().getFirstMatch(Main.COMPOSTING_RECIPE_TYPE, inputInventory, world);
 		if (recipeOptional.isPresent()) {

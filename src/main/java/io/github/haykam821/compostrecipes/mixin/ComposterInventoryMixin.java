@@ -5,18 +5,18 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import io.github.haykam821.compostrecipes.Main;
 import net.minecraft.block.ComposterBlock;
-import net.minecraft.inventory.BasicInventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.WorldAccess;
 
 @Mixin(targets = {"net/minecraft/block/ComposterBlock$ComposterInventory"})
-public class ComposterInventoryMixin extends BasicInventory {
+public class ComposterInventoryMixin extends SimpleInventory {
 	@Shadow
 	private boolean dirty;
 
 	@Shadow
-	private IWorld world;
+	private WorldAccess world;
 
 	public boolean canInsertInvStack(int i, ItemStack stack, Direction direction) {
 		if (this.dirty) return false;

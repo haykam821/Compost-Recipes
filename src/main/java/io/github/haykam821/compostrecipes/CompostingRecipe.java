@@ -8,8 +8,8 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 public class CompostingRecipe implements Recipe<Inventory> {
@@ -34,7 +34,7 @@ public class CompostingRecipe implements Recipe<Inventory> {
    }
 
 	public boolean matches(Inventory inventory, World world) {
-		return this.input.test(inventory.getInvStack(0));
+		return this.input.test(inventory.getStack(0));
 	}
 
 	public ItemStack craft(Inventory inventory) {

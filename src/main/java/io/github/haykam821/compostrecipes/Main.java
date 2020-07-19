@@ -1,8 +1,8 @@
 package io.github.haykam821.compostrecipes;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.inventory.BasicInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
@@ -25,7 +25,7 @@ public class Main implements ModInitializer {
 	}
 
 	public static boolean canCompost(ItemStack itemStack, World world) {
-		Inventory fakeInv = new BasicInventory(itemStack);
+		Inventory fakeInv = new SimpleInventory(itemStack);
 		return world.getRecipeManager().getFirstMatch(COMPOSTING_RECIPE_TYPE, fakeInv, world).isPresent();
 	}
 }
